@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./product.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <div class="container nav-container">
+            <div class="logo">
+                <a href="./index.html"><img src="./images/BlinkBasket-Logo.jpeg" alt="BlinkBasket Logo"></a>
+            </div>
+                  <input type="text" placeholder="Search for products, brands and more">
+            <nav>
+                <ul>
+                    <li><a href="./index.html">Home</a></li>
+                    <li><a href="">Products</a></li>
+                    <li><a href="">About</a></li>
+                    <li><a href="">Blog</a></li>
+                    <li><a href="">Contact Us</a></li>    
+                </ul>
+                <div class="cart"><span id="cartCount">0</span></div>
+            </nav>
+        </div>
+    </header>
+
+     <div class="breadcrumb">
+        <a href="./index.html">Home</a> > <span id="category-name"></span>
+    </div>
+
+
+     <div class="page-container">
+
+        <!-- CATEGORY SECTION (FIRST SCREEN) -->
+        <section class="category-section" id="categorySection">
+            <h2>Select a Category</h2>
+
+            <div class="category-grid">
+                <div class="category-box" onclick="showCategory('Electronics')">
+                    <img src="./images/elecronics.jpg">
+                    <p>Electronics</p>
+                </div>
+
+                <div class="category-box" onclick="showCategory('Fashion')">
+                    <img src="./images/fashion.jpeg">
+                    <p>Fashion</p>
+                </div>
+
+                <div class="category-box" onclick="showCategory('Home')">
+                    <img src="./images/home.jpeg">
+                    <p>Home</p>
+                </div>
+
+                <div class="category-box" onclick="showCategory('Beauty')">
+                    <img src="./images/beauty.jpeg">
+                    <p>Beauty</p>
+                </div>
+
+                <div class="category-box" onclick="showCategory('Sports')">
+                    <img src="./images/sports.png">
+                    <p>Sports</p>
+                </div>
+
+                <div class="category-box" onclick="showCategory('Food')">
+                    <img src="./images/food.jpeg">
+                    <p>Food</p>
+                </div>
+
+                <div class="category-box" onclick="showCategory('Books')">
+                    <img src="./images/books.jpeg">
+                    <p>Books</p>
+                </div>
+
+                <div class="category-box" onclick="showCategory('Automotive')">
+                    <img src="./images/automotive.jpeg">
+                    <p>Automotive</p>
+                </div>
+
+                <div class="category-box" onclick="showCategory('Automotive')">
+                    <img src="./images/automotive.jpeg">
+                    <p>Automotive</p>
+                </div>
+
+                <div class="category-box" onclick="showCategory('All')">
+                    <img src="./images/all-products.jpeg">
+                    <p>All Products</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRODUCTS SECTION (DISPLAY AFTER CLICK) -->
+        <section class="products-section hidden" id="productsSection">
+            <button class="back-btn" onclick="goBack()">← Back</button>
+            <h2 id="selectedCategoryTitle"></h2>
+            <div class="products-grid" id="productsGrid"></div>
+        </section>
+
+    </div>
+
+
+    <footer class="footer">
+    <div class="footer-container">
+        <div class="footer-about">
+            <h2>BlinkBasket</h2>
+            <p>Fast shopping. Happy clicking.</p>
+        </div>
+
+        <div class="footer-links">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="./about.html">About Us</a></li>
+                <li><a href="./services.html">Services</a></li>
+                <li><a href="./contact.html">Contact Us</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-contact">
+            <h3>Contact Us</h3>
+            <p><strong>Address: </strong>Pentagon 3GW6F+G72, Magarpatta, Hadapsar, Pune, Maharashtra 411013  </p>
+            <p><strong>Email: </strong><a href="mailto:info@skynova.com">info@blinkbasket.com</a></p>
+            <p><strong>Contact No: </strong><a href="tel:+919876543210">+91 98765 43210</a></p>
+        </div>
+
+        <div class="footer-social">
+            <h3>Follow Us</h3>
+             <div class="social-icons">
+                <a href="#" class="fa fa-facebook"></a>
+                 <a href="#" class="fa fa-instagram"></a>
+                <a href="#" class="fa fa-linkedin"></a>
+                <a href="#" class="fa fa-twitter"></a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+                <p>© BlinkBasket 2025. All Rights Reserved.</p>
+        </div>
+    </div>
+    </footer>
+    <script src="./product.js"></script>
+</body>
+</html>
