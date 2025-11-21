@@ -26,8 +26,10 @@
                     <li><a href="">Blog</a></li>
                     <li><a href="">Contact Us</a></li>    
                 </ul>
-                <div class="cart"><span id="cartCount">0</span></div>
-            </nav>
+                <div class="cart" onclick="window.location.href='cart.html'">
+                    <i class="fa fa-shopping-cart"></i>
+                    <span id="cartCount">0</span>
+                </div>            </nav>
         </div>
     </header>
 
@@ -38,71 +40,105 @@
 
      <div class="page-container">
 
+    <!-- LEFT FIXED SIDEBAR FILTER -->
+    <aside id="filterSidebar" class="hidden">
+        <h3>Filters</h3>
+
+        <!-- Search -->
+        <div class="filter-box">
+            <label>Search</label>
+            <input type="text" id="searchInput" placeholder="Search products">
+        </div>
+
+        <!-- Price filter -->
+        <div class="filter-box">
+            <label>Price</label>
+            <select id="priceFilter">
+                <option value="all">All</option>
+                <option value="0-199">Below ₹199</option>
+                <option value="200-499">₹200 - ₹499</option>
+                <option value="500-999">₹500 - ₹999</option>
+                <option value="1000-99999">₹1000+</option>
+            </select>
+        </div>
+
+        <!-- Category filter (only for ALL PRODUCTS) -->
+        <div class="filter-box hidden" id="categoryFilterBox">
+            <label>Category</label>
+            <select id="categoryFilter"></select>
+        </div>
+
+        <!-- Sorting -->
+        <div class="filter-box">
+            <label>Sort By</label>
+            <select id="sortSelect">
+                <option value="none">None</option>
+                <option value="priceLow">Price: Low → High</option>
+                <option value="priceHigh">Price: High → Low</option>
+                <option value="nameAZ">Name: A → Z</option>
+                <option value="nameZA">Name: Z → A</option>
+            </select>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <section class="content">
+
         <!-- CATEGORY SECTION (FIRST SCREEN) -->
         <section class="category-section" id="categorySection">
             <h2>Select a Category</h2>
 
             <div class="category-grid">
                 <div class="category-box" onclick="showCategory('Electronics')">
-                    <img src="./images/elecronics.jpg">
-                    <p>Electronics</p>
+                    <img src="./images/electronics.jpg"><p>Electronics</p>
                 </div>
 
                 <div class="category-box" onclick="showCategory('Fashion')">
-                    <img src="./images/fashion.jpeg">
-                    <p>Fashion</p>
+                    <img src="./images/fashion.jpeg"><p>Fashion</p>
                 </div>
 
                 <div class="category-box" onclick="showCategory('Home')">
-                    <img src="./images/home.jpeg">
-                    <p>Home</p>
+                    <img src="./images/home.jpeg"><p>Home</p>
                 </div>
 
                 <div class="category-box" onclick="showCategory('Beauty')">
-                    <img src="./images/beauty.jpeg">
-                    <p>Beauty</p>
+                    <img src="./images/beauty.jpeg"><p>Beauty</p>
                 </div>
 
                 <div class="category-box" onclick="showCategory('Sports')">
-                    <img src="./images/sports.png">
-                    <p>Sports</p>
+                    <img src="./images/sports.png"><p>Sports</p>
                 </div>
 
                 <div class="category-box" onclick="showCategory('Food')">
-                    <img src="./images/food.jpeg">
-                    <p>Food</p>
+                    <img src="./images/food.jpeg"><p>Food</p>
                 </div>
 
                 <div class="category-box" onclick="showCategory('Books')">
-                    <img src="./images/books.jpeg">
-                    <p>Books</p>
+                    <img src="./images/books.jpeg"><p>Books</p>
                 </div>
 
-                <div class="category-box" onclick="showCategory('Automotive')">
-                    <img src="./images/automotive.jpeg">
-                    <p>Automotive</p>
-                </div>
-
-                <div class="category-box" onclick="showCategory('Automotive')">
-                    <img src="./images/automotive.jpeg">
-                    <p>Automotive</p>
+                <div class="category-box" onclick="showCategory('Pets')">
+                    <img src="./images/pets/pets1.jpeg"><p>Pets</p>
                 </div>
 
                 <div class="category-box" onclick="showCategory('All')">
-                    <img src="./images/all-products.jpeg">
-                    <p>All Products</p>
+                    <img src="./images/all-products.jpeg"><p>All Products</p>
                 </div>
             </div>
         </section>
 
-        <!-- PRODUCTS SECTION (DISPLAY AFTER CLICK) -->
+        <!-- PRODUCT LIST SECTION -->
         <section class="products-section hidden" id="productsSection">
             <button class="back-btn" onclick="goBack()">← Back</button>
             <h2 id="selectedCategoryTitle"></h2>
             <div class="products-grid" id="productsGrid"></div>
         </section>
 
-    </div>
+    </section>
+</div>
+
+
+
 
 
     <footer class="footer">

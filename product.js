@@ -124,48 +124,174 @@ const products = {
     ]
 };
 
+let loadedProducts = [];
+
+// LOAD CATEGORY
 function showCategory(categoryName) {
-    const categorySection = document.getElementById("categorySection");
-    const productsSection = document.getElementById("productsSection");
+    const catSection = document.getElementById("categorySection");
+    const proSection = document.getElementById("productsSection");
     const title = document.getElementById("selectedCategoryTitle");
     const grid = document.getElementById("productsGrid");
 
-    // Hide category section, show product section
-    categorySection.classList.add("hidden");
-    productsSection.classList.remove("hidden");
+    catSection.classList.add("hidden");
+    proSection.classList.remove("hidden");
 
-    // Set title
     title.innerText = categoryName === "All" ? "All Products" : categoryName;
 
-    // Clear old products
-    grid.innerHTML = "";
-
-    let itemsToLoad = [];
-
-    // If "All" → merge all products
+    // Load products
     if (categoryName === "All") {
+        loadedProducts = Object.values(products).flat();
+
+        // Show category filter
+        document.getElementById("categoryFilterBox").classList.remove("hidden");
+
+        // Fill category filter dropdown
+        const catDrop = document.getElementById("categoryFilter");
+        catDrop.innerHTML = '<option value="all">All Categories</option>';
         Object.keys(products).forEach(cat => {
-            itemsToLoad = itemsToLoad.concat(products[cat]);
+            catDrop.innerHTML += `<option value="${cat}">${cat}</option>`;
         });
+
     } else {
-        itemsToLoad = products[categoryName];
+        loadedProducts = products[categoryName];
+        document.getElementById("categoryFilterBox").classList.add("hidden");
     }
 
-    // Render products
-    itemsToLoad.forEach(p => {
+    renderProducts(loadedProducts);
+}
+
+// RENDER FUNCTION
+function renderProducts(list) {
+    const grid = document.getElementById("productsGrid");
+    grid.innerHTML = "";
+
+    list.forEach(p => {
         grid.innerHTML += `
-            <div class="product-card">
-                <img src="${p.img}" alt="${p.name}">
-                <h4>${p.name}</h4>
-                <p class="price">₹${p.price}</p>
-                <button class="add-btn">Add to Cart</button>
-            </div>
-        `;
+         <div class="product-card">
+            <img src="${p.img}" alt="${p.name}">
+            <h4>${p.name}</h4>
+            <p class="price">${p.price}</p>
+
+            <button class="add-btn"
+                onclick='addToCart("${p.name}", "${p.price}", "${p.img}")'>
+                Add to Cart
+            </button>
+        </div>`;
     });
 }
 
-// BACK BUTTON → GO TO CATEGORY LIST
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+function addToCart(name, price, img) {
+    let existing = cart.find(item => item.name === name);
+
+    if (existing) {
+        existing.quantity++;
+    } else {
+        cart.push({
+            name,
+            price,
+            img,
+            quantity: 1
+        });
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert(name + " added to cart!");
+}
+
+
+// FILTER + SORT HANDLING
+function applyFilters() {
+    let filtered = [...loadedProducts];
+
+    // SEARCH FILTER
+    const searchText = document.getElementById("searchInput").value.toLowerCase();
+    if (searchText) {
+        filtered = filtered.filter(p => p.name.toLowerCase().includes(searchText));
+    }
+
+    // PRICE FILTER
+    const priceValue = document.getElementById("priceFilter").value;
+    if (priceValue !== "all") {
+        const [min, max] = priceValue.split("-").map(Number);
+        filtered = filtered.filter(p => {
+            const price = Number(p.price.replace("₹", "").replace(",", ""));
+            return price >= min && price <= max;
+        });
+    }
+
+    // CATEGORY FILTER (only for All)
+    const catVal = document.getElementById("categoryFilter").value;
+    if (catVal !== "all" && products[catVal]) {
+        filtered = products[catVal];
+    }
+
+    // SORT
+    const sortVal = document.getElementById("sortSelect").value;
+
+    if (sortVal === "priceLow") {
+        filtered.sort((a, b) =>
+            parseInt(a.price.replace(/\D/g, "")) - parseInt(b.price.replace(/\D/g, ""))
+        );
+    }
+    if (sortVal === "priceHigh") {
+        filtered.sort((a, b) =>
+            parseInt(b.price.replace(/\D/g, "")) - parseInt(a.price.replace(/\D/g, ""))
+        );
+    }
+    if (sortVal === "nameAZ") {
+        filtered.sort((a, b) => a.name.localeCompare(b.name));
+    }
+    if (sortVal === "nameZA") {
+        filtered.sort((a, b) => b.name.localeCompare(a.name));
+    }
+
+    renderProducts(filtered);
+}
+
+function applySorting() {
+    let sorted = [...loadedProducts];
+
+    const sortVal = document.getElementById("sortSelect").value;
+
+    // Price Low → High
+    if (sortVal === "priceLow") {
+        sorted.sort((a, b) =>
+            parseInt(a.price.replace(/\D/g, "")) - parseInt(b.price.replace(/\D/g, ""))
+        );
+    }
+
+    // Price High → Low
+    if (sortVal === "priceHigh") {
+        sorted.sort((a, b) =>
+            parseInt(b.price.replace(/\D/g, "")) - parseInt(a.price.replace(/\D/g, "")) 
+        );
+    }
+
+    // Name A → Z
+    if (sortVal === "nameAZ") {
+        sorted.sort((a, b) => a.name.localeCompare(b.name));
+    }
+
+    // Name Z → A
+    if (sortVal === "nameZA") {
+        sorted.sort((a, b) => b.name.localeCompare(a.name));
+    }
+
+    renderProducts(sorted);
+}
+
+// EVENT LISTENERS
+document.getElementById("searchInput").addEventListener("input", applyFilters);
+document.getElementById("priceFilter").addEventListener("change", applyFilters);
+document.getElementById("categoryFilter").addEventListener("change", applyFilters);
+document.getElementById("sortSelect").addEventListener("change", applyFilters);
+
+// BACK BUTTON
 function goBack() {
     document.getElementById("categorySection").classList.remove("hidden");
     document.getElementById("productsSection").classList.add("hidden");
 }
+
+document.getElementById("sortSelect").addEventListener("change", applySorting);

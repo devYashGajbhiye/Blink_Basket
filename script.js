@@ -39,3 +39,14 @@ nextBtn.addEventListener("click", () => {
 prevBtn.addEventListener("click", () => {
     slider.scrollBy({ left: -300, behavior: "smooth" });
 });
+
+
+let cartCount = localStorage.getItem("cartCount") ? parseInt(localStorage.getItem("cartCount")) : 0;
+
+document.getElementById("cartCount").textContent = cartCount;
+
+function addToCart() {
+    cartCount++;
+    document.getElementById("cartCount").textContent = cartCount;
+    localStorage.setItem("cartCount", cartCount);
+}

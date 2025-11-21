@@ -1,18 +1,17 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="./category.css">
+    <link rel="stylesheet" href="./cart.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
-     <header>
+    <header>
         <div class="container nav-container">
             <div class="logo">
                 <a href="./index.html"><img src="./images/BlinkBasket-Logo.jpeg" alt="BlinkBasket Logo"></a>
@@ -21,60 +20,32 @@
             <nav>
                 <ul>
                     <li><a href="./index.html">Home</a></li>
-                    <li><a href="">Products</a></li>
-                    <li><a href="">About</a></li>
-                    <li><a href="">Blog</a></li>
+                    <li><a href="./product.html">Products</a></li>
+                    <li><a href="./about.html">About</a></li>
                     <li><a href="">Contact Us</a></li>    
                 </ul>
                 <div class="cart" onclick="window.location.href='cart.html'">
                     <i class="fa fa-shopping-cart"></i>
                     <span id="cartCount">0</span>
-                </div>            </nav>
+                </div>
+            </nav>
         </div>
     </header>
 
-     <div class="breadcrumb">
-        <a href="./index.html">Home</a> > <span id="category-name"></span>
+    <h2 class="cart-title">Your Shopping Cart</h2>
+
+<div class="cart-container">
+    <div id="cartItems"></div>
+
+    <div class="total-box">
+        <h3>Total Price: <span id="totalPrice">₹0</span></h3>
+        <button class="checkout-btn">Proceed to Checkout</button>
     </div>
+</div>
 
-    <div class="category-container">
 
-        <aside class="filters">
-            <h3>Filters</h3>
 
-            <div class="filter-section">
-                <h4>Price</h4>
-                <label><input type="checkbox"> Under ₹500</label>
-                <label><input type="checkbox"> ₹500 – ₹1,000</label>
-                <label><input type="checkbox"> ₹1,000 – ₹5,000</label>
-                <label><input type="checkbox"> Above ₹5,000</label>
-            </div>
-
-            <div class="filter-section">
-                <h4>Rating</h4>
-                <label><input type="checkbox"> 4★ & above</label>
-                <label><input type="checkbox"> 3★ & above</label>
-            </div>
-
-            <div class="filter-section">
-                <h4>Brand</h4>
-                <label><input type="checkbox"> Brand A</label>
-                <label><input type="checkbox"> Brand B</label>
-                <label><input type="checkbox"> Brand C</label>
-            </div>
-        </aside>
-
-        <!-- Product Section -->
-        <main class="products">
-            <h2 id="category-heading"></h2>
-
-            <div class="product-grid" id="product-list">
-                <!-- Products inserted by JS -->
-            </div>
-        </main>
-    </div>
-
-    <footer class="footer">
+     <footer class="footer">
     <div class="footer-container">
         <div class="footer-about">
             <h2>BlinkBasket</h2>
@@ -112,7 +83,10 @@
                 <p>© BlinkBasket 2025. All Rights Reserved.</p>
         </div>
     </div>
-    </footer>
-    <script src="./category.js"></script>
+</footer>
+
+
+<script src="./cart.js"></script>
+<script>loadCartItems();</script>
 </body>
 </html>
